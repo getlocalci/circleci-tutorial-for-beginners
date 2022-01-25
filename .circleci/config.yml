@@ -1,0 +1,32 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@4.1
+
+jobs:
+  js-test:
+    docker:
+      - image: cimg/node:16.8.0-browsers
+    steps:
+      - node/install-npm
+      - checkout
+      - run: npm test:js
+  e2e-test:
+    machine:
+      image: ubuntu-1604:202004-01
+    steps:
+      - checkout
+      - node/install-packages
+      - run:
+          name: Run tests
+          working_directory: e2e
+          command: |
+            sudo apt-get update && sudo apt-get install php php-xml
+            npm run wp-env start
+            npm test:e2e
+
+workflows:
+  test-all:
+    jobs:
+      - js-test
+      - e2e-test
