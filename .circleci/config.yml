@@ -23,7 +23,6 @@ jobs:
       - node/install-packages
       - run:
           name: Running e2e tests
-          working_directory: e2e
           command: |
             npm run wp-env start
             npm run test:e2e
