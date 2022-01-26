@@ -4,7 +4,7 @@ orbs:
   node: circleci/node@4.1
 
 jobs:
-  js-lint-test:
+  js-build:
     docker:
       - image: cimg/node:16.8.0-browsers
     steps:
@@ -15,6 +15,17 @@ jobs:
           command: |
             npm run lint:js
             npm run test:js
+  php-build:
+    docker:
+      - image: cimg/php:8.1
+    steps:
+      - checkout
+      - run:
+          name: Linting and testing PHP
+          command: |
+            composer install
+            composer lint
+            composer test
   e2e-test:
     machine:
       image: ubuntu-2004:202111-02
@@ -23,7 +34,6 @@ jobs:
       - node/install-packages
       - run:
           name: Running e2e tests
-          working_directory: e2e
           command: |
             npm run wp-env start
             npm run test:e2e
@@ -31,5 +41,6 @@ jobs:
 workflows:
   test-all:
     jobs:
-      - js-lint-test
+      - js-build
+      - php-build
       - e2e-test
