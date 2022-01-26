@@ -15,7 +15,11 @@ jobs:
           command: |
             npm run lint:js
             npm run test:js
+
   php-build:
+    parameters:
+      php-version:
+        type: string
     docker:
       - image: cimg/php:8.1
     steps:
@@ -26,6 +30,7 @@ jobs:
             composer install
             composer lint
             composer test
+
   e2e-test:
     machine:
       image: ubuntu-2004:202111-02
@@ -42,5 +47,8 @@ workflows:
   test-all:
     jobs:
       - js-build
-      - php-build
+      - php-build:
+          matrix:
+            parameters:
+              php-version: [ '7.3', '7.4', '8.0', '8.1' ]
       - e2e-test
