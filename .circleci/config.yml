@@ -25,7 +25,6 @@ jobs:
           name: Running e2e tests
           working_directory: e2e
           command: |
-            sudo apt-get update && sudo apt-get install php php-xml
             npm run wp-env start
             npm run test:e2e
 
