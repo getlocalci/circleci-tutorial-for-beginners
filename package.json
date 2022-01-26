@@ -19,6 +19,7 @@
     "node": "14"
   },
   "main": "src/multiply.js",
+  "dependencies": {},
   "devDependencies": {
     "@babel/preset-env": "^7.16.7",
     "@wordpress/e2e-test-utils": "^5.4.10",
@@ -40,6 +41,5 @@
     "test:js": "jest",
     "test:e2e": "wp-scripts test-e2e --config=e2e/jest.config.js",
     "wp-env": "wp-env"
-  },
-  "dependencies": {}
+  }
 }
