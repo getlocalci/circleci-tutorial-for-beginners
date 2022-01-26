@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="Coding Standard for Example PHP">
+<ruleset name="Coding Standard for PHP in CircleCI® Tutorial For Beginners">
 
     <rule ref="PSR12" />
 
