@@ -28,7 +28,7 @@ jobs:
             composer test
   e2e-test:
     machine:
-      image: ubuntu-2004:202111-02
+      image: cimg/node:16.8.0-browsers
     steps:
       - checkout
       - node/install-packages
