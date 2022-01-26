@@ -15,17 +15,32 @@ jobs:
           command: |
             npm run lint:js
             npm run test:js
-  php-build:
+
+  php-test:
+    parameters:
+      php-version-number:
+        type: string
+    docker:
+      - image: cimg/php:<< parameters.php-version-number >>
+    steps:
+      - checkout
+      - run:
+          name: Testing PHP
+          command: |
+            composer i
+            composer test
+
+  php-lint:
     docker:
       - image: cimg/php:8.1
     steps:
       - checkout
       - run:
-          name: Linting and testing PHP
+          name: Linting PHP
           command: |
-            composer install
+            composer i
             composer lint
-            composer test
+
   e2e-test:
     machine:
       image: ubuntu-2004:202111-02
@@ -39,8 +54,14 @@ jobs:
             npm run test:e2e
 
 workflows:
-  test-all:
+  test-lint:
     jobs:
-      - js-build
-      - php-build
       - e2e-test
+      - js-build
+      - php-lint
+      - php-test:
+          requires:
+            - php-lint
+          matrix:
+            parameters:
+              php-version-number: [ '7.3', '7.4', '8.0', '8.1' ]

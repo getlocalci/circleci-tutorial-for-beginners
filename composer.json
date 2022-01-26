@@ -14,6 +14,9 @@
             "email": "kienstraryan@gmail.com"
         }
     ],
+    "require": {
+        "php": "^7.3 || ^8"
+    },
     "require-dev": {
         "phpunit/phpunit": "^7 || ^8 || ^9",
         "sirbrillig/phpcs-variable-analysis": "^2.11"
