@@ -1,19 +1,20 @@
 {
-  "name": "circle-tutorial-beginners",
+  "name": "circleci-tutorial-for-beginners",
   "version": "0.1.0",
   "description": "Tutorial for CircleCI®",
   "author": "Ryan Kienstra",
   "license": "GPL-2.0-or-later",
   "keywords": [
-    "javascript"
+    "javascript",
+    "CI/CD"
   ],
-  "homepage": "https://github.com/getlocalci/circle-tutorial-beginners#readme",
+  "homepage": "https://github.com/getlocalci/circleci-tutorial-for-beginners#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/getlocalci/circle-tutorial-beginners.git"
+    "url": "git+https://github.com/getlocalci/circleci-tutorial-for-beginners.git"
   },
   "bugs": {
-    "url": "https://github.com/getlocalci/circle-tutorial-beginners/issues"
+    "url": "https://github.com/getlocalci/circleci-tutorial-for-beginners/issues"
   },
   "engines": {
     "node": "14"
