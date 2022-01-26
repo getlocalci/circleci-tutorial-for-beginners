@@ -11,7 +11,7 @@ jobs:
       - checkout
       - node/install-packages
       - run:
-          name: Run JS linting and unit test
+          name: Running JS linting and unit test
           command: |
             npm run lint:js
             npm run test:js
@@ -22,7 +22,7 @@ jobs:
       - checkout
       - node/install-packages
       - run:
-          name: Run e2e tests
+          name: Running e2e tests
           working_directory: e2e
           command: |
             sudo apt-get update && sudo apt-get install php php-xml
