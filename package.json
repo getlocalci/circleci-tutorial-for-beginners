@@ -40,7 +40,7 @@
     "lint:js": "wp-scripts lint-js src",
     "lint:js:fix": "npm run lint:js -- --fix",
     "test:js": "jest",
-    "test:e2e": "wp-scripts test-e2e --config=e2e/jest.config.js",
+    "test:e2e": "wp-scripts test-e2e --config=tests/e2e/jest.config.js",
     "wp-env": "wp-env"
   }
 }
