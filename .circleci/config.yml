@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  node: circleci/node@4.1
+  node: circleci/node@5.0.0
 
 jobs:
   js-build:
@@ -16,6 +16,17 @@ jobs:
             npm run lint:js
             npm run test:js
 
+  php-lint:
+    docker:
+      - image: cimg/php:8.1
+    steps:
+      - checkout
+      - run:
+          name: Linting PHP
+          command: |
+            composer i
+            composer lint
+
   php-test:
     parameters:
       php-version-number:
@@ -29,17 +40,6 @@ jobs:
           command: |
             composer i
             composer test
-
-  php-lint:
-    docker:
-      - image: cimg/php:8.1
-    steps:
-      - checkout
-      - run:
-          name: Linting PHP
-          command: |
-            composer i
-            composer lint
 
   e2e-test:
     machine:
