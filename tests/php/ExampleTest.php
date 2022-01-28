@@ -7,9 +7,7 @@ namespace GetLocalCI\ExamplePhp;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @small
- *
- * @covers \Asw\ExamplePhp
+ * @covers \GetLocalCI\ExamplePhp\Example
  */
 class ExampleTest extends TestCase
 {
