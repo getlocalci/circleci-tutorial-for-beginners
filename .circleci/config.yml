@@ -55,7 +55,7 @@ jobs:
             npm run wp-env start
             npm run test:e2e
       - store_artifacts:
-          path: artifacts/
+          path: artifacts
 
 workflows:
   test-lint:
