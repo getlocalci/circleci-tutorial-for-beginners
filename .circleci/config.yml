@@ -8,7 +8,7 @@ orbs:
 jobs:
   js-build:
     docker:
-      - image: cimg/node:16.8.0-browsers
+      - image: cimg/node:14.18.3
     steps:
       - checkout
       - node/install-packages
@@ -60,7 +60,6 @@ jobs:
 workflows:
   test-lint:
     jobs:
-      - e2e-test
       - js-build
       - php-lint
       - php-test:
@@ -69,3 +68,4 @@ workflows:
           matrix:
             parameters:
               php-version-number: [ '7.3', '7.4', '8.0', '8.1' ]
+      - e2e-test
