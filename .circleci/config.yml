@@ -8,7 +8,7 @@ orbs:
 jobs:
   js-build:
     docker:
-      - image: cimg/node:14.18.3
+      - image: cimg/node:14.18
     steps:
       - checkout
       - node/install-packages
@@ -55,7 +55,7 @@ jobs:
             npm run wp-env start
             npm run test:e2e
       - store_artifacts:
-          path: artifacts/
+          path: artifacts
 
 workflows:
   test-lint:
