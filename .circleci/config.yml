@@ -58,7 +58,7 @@ jobs:
           path: artifacts
 
 workflows:
-  test-lint:
+  test-flow:
     jobs:
       - js-build
       - php-lint
