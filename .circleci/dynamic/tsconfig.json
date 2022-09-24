@@ -1,19 +1,11 @@
 {
 	"compilerOptions": {
-		"noImplicitAny": false,
 		"module": "ESNext",
 		"target": "ESNext",
 		"moduleResolution": "Node",
 		"esModuleInterop": true,
-		"jsx": "react",
-		"allowJs": true,
-		"checkJs": true,
-		"sourceMap": true,
 		"noEmit": true
 	},
-	"include": [
-		"index.ts"
-	],
 	"exclude": [
 		"node_modules/"
 	]
