@@ -6,21 +6,21 @@ const workflow = new CircleCI.Workflow("test-lint");
 config.addWorkflow(workflow);
 
 const nodeExecutor = new CircleCI.executors.DockerExecutor("cimg/node:14.18");
-const phpExecutor = new CircleCI.executors.DockerExecutor(
-  "cimg/php:8.1"
-);
+const phpExecutor = new CircleCI.executors.DockerExecutor("cimg/php:8.1");
 
 const reusablePhpExecutor = new CircleCI.reusable.ReusableExecutor(
-  'php',
-  new CircleCI.executors.DockerExecutor("cimg/php:<< parameters.php-version-number >>"),
+  "php",
+  new CircleCI.executors.DockerExecutor(
+    "cimg/php:<< parameters.php-version-number >>"
+  ),
   new CircleCI.parameters.CustomParametersList<CircleCI.types.parameter.literals.ExecutorParameterLiteral>(
     [
       new CircleCI.parameters.CustomParameter(
-        'php-version-number',
+        "php-version-number",
         CircleCI.mapping.ParameterSubtype.STRING
       ),
-    ],
-  ),
+    ]
+  )
 );
 
 const e2eExecutor = new CircleCI.executors.MachineExecutor(
@@ -70,11 +70,16 @@ config.importOrb(phpOrb);
     new CircleCI.reusable.ReusedCommand(phpOrb.commands["install-packages"]),
     new CircleCI.commands.Run({ command: "composer lint" }),
   ]),
-  new CircleCI.Job("php-test", reusablePhpExecutor.executor, [
-    new CircleCI.commands.Checkout(),
-    new CircleCI.reusable.ReusedCommand(phpOrb.commands["install-packages"]),
-    new CircleCI.commands.Run({ command: "composer test" }),
-  ]),
+  new CircleCI.reusable.ParameterizedJob(
+    "php-test",
+    reusablePhpExecutor.executor
+  )
+    .defineParameter("php-version-number", "string")
+    .addStep(new CircleCI.commands.Checkout())
+    .addStep(
+      new CircleCI.reusable.ReusedCommand(phpOrb.commands["install-packages"])
+    )
+    .addStep(new CircleCI.commands.Run({ command: "composer test" })),
   new CircleCI.Job("e2e-test", e2eExecutor, [
     new CircleCI.commands.Checkout(),
     new CircleCI.reusable.ReusedCommand(nodeOrb.commands["install-packages"]),
