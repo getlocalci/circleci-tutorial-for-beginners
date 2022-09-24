@@ -10,7 +10,6 @@
     "lint:fix": "prettier --write index.ts",
     "start": "ts-node --esm index.ts"
   },
-  "keywords": [],
   "license": "GPL-2.0-or-later",
   "devDependencies": {
     "@circleci/circleci-config-sdk": "^0.10.1",
