@@ -1,0 +1,21 @@
+{
+  "name": "circleci-tutorial-for-beginners-dynamic-config",
+  "version": "0.1.0",
+  "description": "Dynamic CircleCI® config",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "start": "ts-node --esm index.ts"
+  },
+  "keywords": [],
+  "author": "Ryan Kienstra",
+  "license": "GPL-2.0-or-later",
+  "devDependencies": {
+    "@circleci/circleci-config-sdk": "^0.10.1",
+    "@types/node": "^18.7.20",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.4.0",
+    "typescript": "^4.8.3"
+  },
+  "dependencies": {}
+}
