@@ -7,8 +7,22 @@ config.addWorkflow(workflow);
 
 const nodeExecutor = new CircleCI.executors.DockerExecutor("cimg/node:14.18");
 const phpExecutor = new CircleCI.executors.DockerExecutor(
-  "cimg/php:<< parameters.php-version-number >>"
+  "cimg/php:8.1"
 );
+
+const reusablePhpExecutor = new CircleCI.reusable.ReusableExecutor(
+  'php',
+  new CircleCI.executors.DockerExecutor("cimg/php:<< parameters.php-version-number >>"),
+  new CircleCI.parameters.CustomParametersList<CircleCI.types.parameter.literals.ExecutorParameterLiteral>(
+    [
+      new CircleCI.parameters.CustomParameter(
+        'php-version-number',
+        CircleCI.mapping.ParameterSubtype.STRING
+      ),
+    ],
+  ),
+);
+
 const e2eExecutor = new CircleCI.executors.MachineExecutor(
   "large",
   "ubuntu-2004:202111-02"
@@ -56,7 +70,7 @@ config.importOrb(phpOrb);
     new CircleCI.reusable.ReusedCommand(phpOrb.commands["install-packages"]),
     new CircleCI.commands.Run({ command: "composer lint" }),
   ]),
-  new CircleCI.Job("php-test", phpExecutor, [
+  new CircleCI.Job("php-test", reusablePhpExecutor.executor, [
     new CircleCI.commands.Checkout(),
     new CircleCI.reusable.ReusedCommand(phpOrb.commands["install-packages"]),
     new CircleCI.commands.Run({ command: "composer test" }),
@@ -71,7 +85,7 @@ config.importOrb(phpOrb);
     new CircleCI.commands.StoreArtifacts({ path: "artifacts" }),
   ]),
 ].forEach((job) => {
-  config.addJob(job);
+  config.addJob(job).defineParameter("php-version-number", "string");
   workflow.addJob(
     job,
     job.name === "php-test"
