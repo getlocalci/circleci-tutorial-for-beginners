@@ -6,7 +6,9 @@ const workflow = new CircleCI.Workflow("test-lint");
 config.addWorkflow(workflow);
 
 const nodeExecutor = new CircleCI.executors.DockerExecutor("cimg/node:14.18");
-const phpExecutor = new CircleCI.executors.DockerExecutor("cimg/php:8.1");
+const phpExecutor = new CircleCI.executors.DockerExecutor(
+  "cimg/php:<< parameters.php-version-number >>"
+);
 const e2eExecutor = new CircleCI.executors.MachineExecutor(
   "large",
   "ubuntu-2004:202111-02"
@@ -40,7 +42,7 @@ const phpOrb = new CircleCI.orb.OrbImport(
 config.importOrb(nodeOrb);
 config.importOrb(phpOrb);
 
-const jobs = [
+[
   new CircleCI.Job("js-build", nodeExecutor, [
     new CircleCI.commands.Checkout(),
     new CircleCI.reusable.ReusedCommand(nodeOrb.commands["install-packages"]),
@@ -68,11 +70,14 @@ const jobs = [
     }),
     new CircleCI.commands.StoreArtifacts({ path: "artifacts" }),
   ]),
-];
-
-jobs.forEach((job) => {
+].forEach((job) => {
   config.addJob(job);
-  workflow.addJob(job);
+  workflow.addJob(
+    job,
+    job.name === "php-test"
+      ? { matrix: { "php-version-number": ["7.3", "7.4", "8.0", "8.1"] } }
+      : undefined
+  );
 });
 
 fs.writeFile("./dynamicConfig.yml", config.stringify(), () => {});
