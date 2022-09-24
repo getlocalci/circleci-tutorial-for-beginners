@@ -85,7 +85,7 @@ config.importOrb(phpOrb);
     new CircleCI.commands.StoreArtifacts({ path: "artifacts" }),
   ]),
 ].forEach((job) => {
-  config.addJob(job).defineParameter("php-version-number", "string");
+  config.addJob(job);
   workflow.addJob(
     job,
     job.name === "php-test"
