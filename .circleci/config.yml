@@ -12,9 +12,10 @@ jobs:
           app-dir: .circleci/dynamic
       - run:
           name: Generate config
-          command: 'cd .circleci/dynamic && npm run start'
+          command: npm run start
+          working_directory: .circleci/dynamic
       - continuation/continue:
-          configuration_path: ./dynamicConfig.yml
+          configuration_path: .circleci/dynamic/dynamicConfig.yml
 workflows:
   dynamic-workflow:
     jobs:
