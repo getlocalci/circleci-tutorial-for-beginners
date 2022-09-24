@@ -19,7 +19,7 @@ const jobs = [
     [
       new CircleCI.commands.Checkout(),
       new CircleCI.commands.Run( {
-        command: nodeOrb.commands['install-packages']?.name,
+        command: 'npm i',
       } ),
       new CircleCI.commands.Run( {
         name: 'Running JS linting and unit test',
