@@ -71,7 +71,7 @@ config.importOrb(phpOrb);
       ])
     ).executor
   )
-    .defineParameter(phpVersionParameterName, "string")
+    .defineParameter(phpVersionParameterName, CircleCI.mapping.ParameterSubtype.STRING)
     .addStep(new CircleCI.commands.Checkout())
     .addStep(
       new CircleCI.reusable.ReusedCommand(phpOrb.commands["install-packages"])
