@@ -1,71 +1,22 @@
-# https://circleci.com/docs/2.0/config-intro/
-
 version: 2.1
-
 orbs:
-  node: circleci/node@5.0.0
-
+  continuation: circleci/continuation@0.3
+  node: circleci/node@5.0
+setup: true
 jobs:
-  js-build:
-    docker:
-      - image: cimg/node:14.18
+  generate-config:
+    executor: node/default
     steps:
       - checkout
-      - node/install-packages
+      - node/install-packages:
+          app-dir: .circleci/dynamic
       - run:
-          name: Running JS linting and unit test
-          command: |
-            npm run lint:js
-            npm run test:js
-
-  php-lint:
-    docker:
-      - image: cimg/php:8.1
-    steps:
-      - checkout
-      - run:
-          name: Linting PHP
-          command: |
-            composer i
-            composer lint
-
-  php-test:
-    parameters:
-      php-version-number:
-        type: string
-    docker:
-      - image: cimg/php:<< parameters.php-version-number >>
-    steps:
-      - checkout
-      - run:
-          name: Testing PHP
-          command: |
-            composer i
-            composer test
-
-  e2e-test:
-    machine:
-      image: ubuntu-2004:202111-02
-    steps:
-      - checkout
-      - node/install-packages
-      - run:
-          name: Running e2e tests
-          command: |
-            npm run wp-env start
-            npm run test:e2e
-      - store_artifacts:
-          path: artifacts
-
+          name: Generate config
+          command: npm start
+          working_directory: .circleci/dynamic
+      - continuation/continue:
+          configuration_path: .circleci/dynamic/dynamicConfig.yml
 workflows:
-  test-flow:
+  dynamic-workflow:
     jobs:
-      - js-build
-      - php-lint
-      - php-test:
-          requires:
-            - php-lint
-          matrix:
-            parameters:
-              php-version-number: [ '7.3', '7.4', '8.0', '8.1' ]
-      - e2e-test
+      - generate-config
