@@ -1,6 +1,6 @@
 # CircleCI® Tutorial For Beginners
 
-[![CircleCI](https://dl.circleci.com/insights-snapshot/gh/circleci/circleci-docs/master/build-deploy/badge.svg?window=30d)](https://app.circleci.com/insights/github/getlocalci/circleci-tutorial-for-beginners?branches=develop&workflows=test-flow&reporting-window=last-12-months&insights-snapshot=true)
+[![CircleCI](https://dl.circleci.com/insights-snapshot/gh/circleci/circleci-docs/master/build-deploy/badge.svg?window=30d)](https://app.circleci.com/insights/github/getlocalci/circleci-tutorial-for-beginners?branches=develop&workflows=test-flow&reporting-window=last-30-days&insights-snapshot=true)
 
 ![circleci-tutorial-jobs](https://user-images.githubusercontent.com/4063887/153124438-caddfc94-9b91-4df0-976c-d84baca37232.png)
 
