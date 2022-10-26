@@ -45,7 +45,7 @@ jobs:
 
   e2e-test:
     docker:
-      - image: circleci/node:latest-browsers
+      - image: cimg/node:current-browsers
     steps:
       - setup_remote_docker
       - checkout
