@@ -54,7 +54,7 @@ jobs:
       - run:
           name: Running e2e tests
           command: |
-            docker -v
+            docker run hello-world
             npm run wp-env start
             npm run test:e2e
       - store_artifacts:
