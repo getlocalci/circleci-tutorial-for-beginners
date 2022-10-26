@@ -50,6 +50,7 @@ jobs:
       - checkout
       - node/install
       - node/install-packages
+      - setup_remote_docker
       - run:
           name: Running e2e tests
           command: |
