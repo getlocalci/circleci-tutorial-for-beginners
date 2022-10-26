@@ -47,10 +47,10 @@ jobs:
     docker:
       - image: cimg/base:stable
     steps:
+      - setup_remote_docker
       - checkout
       - node/install
       - node/install-packages
-      - setup_remote_docker
       - run:
           name: Running e2e tests
           command: |
