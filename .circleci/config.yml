@@ -44,8 +44,8 @@ jobs:
             composer test
 
   e2e-test:
-    machine:
-      image: ubuntu-2004:202111-02
+    docker:
+      - image: cimg/base:stable
     steps:
       - checkout
       - node/install-packages
