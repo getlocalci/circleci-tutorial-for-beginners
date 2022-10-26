@@ -48,11 +48,6 @@ jobs:
       - image: circleci/node:latest-browsers
     steps:
       - setup_remote_docker
-      - run:
-          name: Install packages for Puppeteer
-          command: |
-            sudo apt-get update
-            sudo apt-get install libnss3
       - checkout
       - node/install
       - node/install-packages
